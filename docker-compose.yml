@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: forerp-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: forerp
+      MYSQL_USER: forerp
+      MYSQL_PASSWORD: forerp
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - forerp-net
+
+  backend:
+    image: ghcr.io/forERP/Backend-Repo:main
+    container_name: forerp-backend
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/forerp
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysql
+    ports:
+      - "8081:8081"
+    networks:
+      - forerp-net
+
+  backoffice-web:
+    image: ghcr.io/forERP/Frontend-Repo/backoffice-web:main
+    container_name: forerp-backoffice-web
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3100:80"
+    networks:
+      - forerp-net
+
+  store-web:
+    image: ghcr.io/forERP/Frontend-Repo/store-web:main
+    container_name: forerp-store-web
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3200:80"
+    networks:
+      - forerp-net
+
+networks:
+  forerp-net:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local
