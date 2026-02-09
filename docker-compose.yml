@@ -18,13 +18,17 @@ services:
       - forerp-net
 
   backend:
-    image: ghcr.io/forERP/Backend-Repo:main
+    image: ghcr.io/forERP/Backend-Repo:dev
     container_name: forerp-backend
     restart: unless-stopped
     depends_on:
       - mysql
+    env_file:
+      - .env
     environment:
       SPRING_PROFILES_ACTIVE: local
+
+      # DB는 로컬 docker 네트워크 기준(서비스명 mysql)으로 변경해도 무방
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/forerp
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: mysql
@@ -34,7 +38,7 @@ services:
       - forerp-net
 
   backoffice-web:
-    image: ghcr.io/forERP/Frontend-Repo/backoffice-web:main
+    image: ghcr.io/forERP/Frontend-Repo/backoffice-web:dev
     container_name: forerp-backoffice-web
     restart: unless-stopped
     depends_on:
@@ -45,7 +49,7 @@ services:
       - forerp-net
 
   store-web:
-    image: ghcr.io/forERP/Frontend-Repo/store-web:main
+    image: ghcr.io/forERP/Frontend-Repo/store-web:dev
     container_name: forerp-store-web
     restart: unless-stopped
     depends_on:
