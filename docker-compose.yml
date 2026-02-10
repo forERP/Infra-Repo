@@ -25,8 +25,6 @@ services:
       - .env
     environment:
       SPRING_PROFILES_ACTIVE: local
-
-      # DB는 로컬 docker 네트워크 기준(서비스명 mysql)으로 변경해도 무방
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/forerp
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: mysql
