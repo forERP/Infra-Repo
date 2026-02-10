@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   mysql:
     image: mysql:8.0
@@ -18,7 +16,7 @@ services:
       - forerp-net
 
   backend:
-    image: ghcr.io/forERP/Backend-Repo:dev
+    image: ghcr.io/forerp/backend-repo:dev
     container_name: forerp-backend
     restart: unless-stopped
     depends_on:
@@ -38,7 +36,7 @@ services:
       - forerp-net
 
   backoffice-web:
-    image: ghcr.io/forERP/Frontend-Repo/backoffice-web:dev
+    image: ghcr.io/forerp/frontend-repo/backoffice-web:dev
     container_name: forerp-backoffice-web
     restart: unless-stopped
     depends_on:
@@ -49,7 +47,7 @@ services:
       - forerp-net
 
   store-web:
-    image: ghcr.io/forERP/Frontend-Repo/store-web:dev
+    image: ghcr.io/forerp/frontend-repo/store-web:dev
     container_name: forerp-store-web
     restart: unless-stopped
     depends_on:
