@@ -1,5 +1,3 @@
-# Local Development Setup
-
 ## How to Run
 
 ### 1. Install Docker
@@ -40,7 +38,7 @@ docker compose up -d
 
 ---
 
-## Port
+### 5. Access
 
 - 관리자 웹 : http://localhost:3100/
 - POS : http://localhost:3200/
