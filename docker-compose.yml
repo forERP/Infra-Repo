@@ -39,6 +39,8 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
+    environment:
+      KAKAO_MAP_APP_KEY: ${KAKAO_MAP_APP_KEY}
     ports:
       - "3100:80"
     networks:
